@@ -1,0 +1,48 @@
+package Test1;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HandlingHiddenDropdown {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php");
+		driver.manage().window().maximize();
+		
+		//login steps
+		driver.findElement(By.name("username")).sendKeys("Admin");
+		driver.findElement(By.name("password")).sendKeys("admin123");
+		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+		
+		//clicking on PIM
+		driver.findElement(By.xpath("//span[normalize-space()='PIM']")).click();
+		
+		//click on the dropdown
+		driver.findElement(By.xpath("//body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[6]/div[1]/div[2]/div[1]/div[1]/div[1]")).click();
+		Thread.sleep(5000);
+		
+		//select single option from the dropdown
+		//driver.findElement(By.xpath("//span[normalize-space()='Automaton Tester']")).click();
+		
+		//Select multiple options
+		List<WebElement> options = driver.findElements(By.xpath("//div[@role='listbox']//span"));
+		System.out.println("Total No. of options in the dropdown are:"+options.size());
+		
+		//printing all the options
+		for(WebElement op:options)
+		{
+			System.out.println(op.getText());
+		}
+
+	}
+
+}
